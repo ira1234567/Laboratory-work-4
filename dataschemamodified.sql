@@ -7,9 +7,9 @@ CREATE TABLE koristuvach (
 ALTER TABLE koristuvach
     ADD CONSTRAINT koristuvach_pk PRIMARY KEY (id),
     ADD CONSTRAINT koristuvach_imya_format 
-        CHECK (regexp_like(imya, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\\s]{1,100}$')),
+        CHECK (REGEXP_LIKE(imya, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\\s]{1,100}$')),
     ADD CONSTRAINT koristuvach_rol_format 
-        CHECK (regexp_like(rol, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\\s]{1,50}$'));
+        CHECK (REGEXP_LIKE(rol, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\\s]{1,50}$'));
 
 CREATE TABLE pysmennyk (
     id INT
@@ -56,7 +56,7 @@ CREATE TABLE tvir (
 ALTER TABLE tvir
     ADD CONSTRAINT tvir_pk PRIMARY KEY (id),
     ADD CONSTRAINT tvir_nazva_length 
-        CHECK (length(nazva) <= 200);
+        CHECK (LENGTH(nazva) <= 200);
 
 CREATE TABLE rekomendatsii (
     id INT,
@@ -79,7 +79,7 @@ CREATE TABLE chernetka (
 ALTER TABLE chernetka
     ADD CONSTRAINT chernetka_pk PRIMARY KEY (id),
     ADD CONSTRAINT chernetka_nazva_length 
-        CHECK (length(nazva_chernetky) <= 200),
+        CHECK (LENGTH(nazva_chernetky) <= 200),
     ADD CONSTRAINT chernetka_pysmennyk_fk 
         FOREIGN KEY (pysmennyk_id) REFERENCES pysmennyk(id),
     ADD CONSTRAINT chernetka_tvir_fk 
