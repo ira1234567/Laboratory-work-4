@@ -5,26 +5,17 @@ CREATE TABLE koristuvach (
 );
 
 ALTER TABLE koristuvach
-    ADD CONSTRAINT koristuvach_pk PRIMARY KEY (id);
-
-ALTER TABLE koristuvach
-    ADD CONSTRAINT koristuvach_imya_format
-    CHECK (regexp_like(imya, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\s]{1,100}$'));
-
-ALTER TABLE koristuvach
-    ADD CONSTRAINT koristuvach_rol_format
-    CHECK (regexp_like(rol, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\s]{1,50}$'));
+    ADD CONSTRAINT koristuvach_pk PRIMARY KEY (id),
+    ADD CONSTRAINT koristuvach_imya_format CHECK (regexp_like(imya, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\s]{1,100}$')),
+    ADD CONSTRAINT koristuvach_rol_format CHECK (regexp_like(rol, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\s]{1,50}$'));
 
 CREATE TABLE pysmennyk (
     id INT
 );
 
 ALTER TABLE pysmennyk
-    ADD CONSTRAINT pysmennyk_pk PRIMARY KEY (id);
-
-ALTER TABLE pysmennyk
-    ADD CONSTRAINT pysmennyk_koristuvach_fk
-    FOREIGN KEY (id) REFERENCES koristuvach(id);
+    ADD CONSTRAINT pysmennyk_pk PRIMARY KEY (id),
+    ADD CONSTRAINT pysmennyk_koristuvach_fk FOREIGN KEY (id) REFERENCES koristuvach(id);
 
 CREATE TABLE riven_osvitlenosti (
     id INT,
