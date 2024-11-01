@@ -6,10 +6,8 @@ CREATE TABLE koristuvach (
 
 ALTER TABLE koristuvach
     ADD CONSTRAINT koristuvach_pk PRIMARY KEY (id),
-    ADD CONSTRAINT koristuvach_imya_format 
-        CHECK (REGEXP_LIKE(imya, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\\s]{1,100}$')),
-    ADD CONSTRAINT koristuvach_rol_format 
-        CHECK (REGEXP_LIKE(rol, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\\s]{1,50}$'));
+    ADD CONSTRAINT koristuvach_imya_format CHECK (REGEXP_LIKE(imya, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\s]{1,100}$')),
+    ADD CONSTRAINT koristuvach_rol_format CHECK (REGEXP_LIKE(rol, '^[A-Za-zА-Яа-яЁёІіЇїЄєҐґ\s]{1,50}$'));
 
 CREATE TABLE pysmennyk (
     id INT
@@ -17,8 +15,7 @@ CREATE TABLE pysmennyk (
 
 ALTER TABLE pysmennyk
     ADD CONSTRAINT pysmennyk_pk PRIMARY KEY (id),
-    ADD CONSTRAINT pysmennyk_koristuvach_fk 
-        FOREIGN KEY (id) REFERENCES koristuvach(id);
+    ADD CONSTRAINT pysmennyk_koristuvach_fk FOREIGN KEY (id) REFERENCES koristuvach(id);
 
 CREATE TABLE riven_osvitlenosti (
     id INT,
@@ -36,15 +33,12 @@ CREATE TABLE istoriya_osvitlenosti (
 
 ALTER TABLE istoriya_osvitlenosti
     ADD CONSTRAINT istoriya_osvitlenosti_pk PRIMARY KEY (id),
-    ADD CONSTRAINT istoriya_osvitlenosti_pysmennyk_fk 
-        FOREIGN KEY (pysmennyk_id) REFERENCES pysmennyk(id);
+    ADD CONSTRAINT istoriya_osvitlenosti_pysmennyk_fk FOREIGN KEY (pysmennyk_id) REFERENCES pysmennyk(id);
 
 ALTER TABLE riven_osvitlenosti
     ADD CONSTRAINT riven_osvitlenosti_pk PRIMARY KEY (id),
-    ADD CONSTRAINT riven_osvitlenosti_value 
-        CHECK (znachennya_osvitlenosti > 0),
-    ADD CONSTRAINT riven_osvitlenosti_istoriya_fk 
-        FOREIGN KEY (istoriya_osvitlenosti_id) REFERENCES istoriya_osvitlenosti(id);
+    ADD CONSTRAINT riven_osvitlenosti_value CHECK (znachennya_osvitlenosti > 0),
+    ADD CONSTRAINT riven_osvitlenosti_istoriya_fk FOREIGN KEY (istoriya_osvitlenosti_id) REFERENCES istoriya_osvitlenosti(id);
 
 CREATE TABLE tvir (
     id INT,
@@ -55,8 +49,7 @@ CREATE TABLE tvir (
 
 ALTER TABLE tvir
     ADD CONSTRAINT tvir_pk PRIMARY KEY (id),
-    ADD CONSTRAINT tvir_nazva_length 
-        CHECK (LENGTH(nazva) <= 200);
+    ADD CONSTRAINT tvir_nazva_length CHECK (LENGTH(nazva) <= 200);
 
 CREATE TABLE rekomendatsii (
     id INT,
@@ -66,8 +59,7 @@ CREATE TABLE rekomendatsii (
 
 ALTER TABLE rekomendatsii
     ADD CONSTRAINT rekomendatsii_pk PRIMARY KEY (id),
-    ADD CONSTRAINT rekomendatsii_tvir_fk 
-        FOREIGN KEY (tvir_id) REFERENCES tvir(id);
+    ADD CONSTRAINT rekomendatsii_tvir_fk FOREIGN KEY (tvir_id) REFERENCES tvir(id);
 
 CREATE TABLE chernetka (
     id INT,
@@ -78,9 +70,6 @@ CREATE TABLE chernetka (
 
 ALTER TABLE chernetka
     ADD CONSTRAINT chernetka_pk PRIMARY KEY (id),
-    ADD CONSTRAINT chernetka_nazva_length 
-        CHECK (LENGTH(nazva_chernetky) <= 200),
-    ADD CONSTRAINT chernetka_pysmennyk_fk 
-        FOREIGN KEY (pysmennyk_id) REFERENCES pysmennyk(id),
-    ADD CONSTRAINT chernetka_tvir_fk 
-        FOREIGN KEY (tvir_id) REFERENCES tvir(id);
+    ADD CONSTRAINT chernetka_nazva_length CHECK (LENGTH(nazva_chernetky) <= 200),
+    ADD CONSTRAINT chernetka_pysmennyk_fk FOREIGN KEY (pysmennyk_id) REFERENCES pysmennyk(id),
+    ADD CONSTRAINT chernetka_tvir_fk FOREIGN KEY (tvir_id) REFERENCES tvir(id);
